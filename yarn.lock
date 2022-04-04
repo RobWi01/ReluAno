@@ -910,10 +910,10 @@
     "node-releases" "^2.0.2"
     "picocolors" "^1.0.0"
 
-"bson@^4.2.2", "bson@^4.6.1":
-  "integrity" "sha512-I1LQ7Hz5zgwR4QquilLNZwbhPw0Apx7i7X9kGMBTsqPdml/03Q9NBtD9nt/19ahjlphktQImrnderxqpzeVDjw=="
-  "resolved" "https://registry.npmjs.org/bson/-/bson-4.6.1.tgz"
-  "version" "4.6.1"
+"bson@^4.2.2", "bson@^4.6.1", "bson@^4.6.2":
+  "integrity" "sha512-VeJKHShcu1b/ugl0QiujlVuBepab714X9nNyBdA1kfekuDGecxgpTA2Z6nYbagrWFeiIyzSWIOzju3lhj+RNyQ=="
+  "resolved" "https://registry.npmjs.org/bson/-/bson-4.6.2.tgz"
+  "version" "4.6.2"
   dependencies:
     "buffer" "^5.6.0"
 
@@ -2035,7 +2035,7 @@
   "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.6.tgz"
   "version" "1.2.6"
 
-"mongodb-connection-string-url@^2.4.1":
+"mongodb-connection-string-url@^2.4.1", "mongodb-connection-string-url@^2.5.2":
   "integrity" "sha512-tWDyIG8cQlI5k3skB6ywaEA5F9f5OntrKKsT/Lteub2zgwSUlhqEN2inGgBTm8bpYJf8QYBdA/5naz65XDpczA=="
   "resolved" "https://registry.npmjs.org/mongodb-connection-string-url/-/mongodb-connection-string-url-2.5.2.tgz"
   "version" "2.5.2"
@@ -2043,15 +2043,15 @@
     "@types/whatwg-url" "^8.2.1"
     "whatwg-url" "^11.0.0"
 
-"mongodb@^4.1.1", "mongodb@^4.4.0":
-  "integrity" "sha512-1hPhutJj6yxxu0ymwsO0uEimTo+QTh3oQP6YHxmLneBFBOGydYFdnmDDuLiGWimAlMdRN9WuDXY+JGp47aeOwA=="
-  "resolved" "https://registry.npmjs.org/mongodb/-/mongodb-4.4.0.tgz"
-  "version" "4.4.0"
+"mongodb@^4.1.1", "mongodb@^4.5.0":
+  "integrity" "sha512-A2l8MjEpKojnhbCM0MK3+UOGUSGvTNNSv7AkP1fsT7tkambrkkqN/5F2y+PhzsV0Nbv58u04TETpkaSEdI2zKA=="
+  "resolved" "https://registry.npmjs.org/mongodb/-/mongodb-4.5.0.tgz"
+  "version" "4.5.0"
   dependencies:
-    "bson" "^4.6.1"
+    "bson" "^4.6.2"
     "denque" "^2.0.1"
-    "mongodb-connection-string-url" "^2.4.1"
-    "socks" "^2.6.1"
+    "mongodb-connection-string-url" "^2.5.2"
+    "socks" "^2.6.2"
   optionalDependencies:
     "saslprep" "^1.0.3"
 
@@ -2685,7 +2685,7 @@
   "resolved" "https://registry.npmjs.org/smart-buffer/-/smart-buffer-4.2.0.tgz"
   "version" "4.2.0"
 
-"socks@^2.6.1":
+"socks@^2.6.1", "socks@^2.6.2":
   "integrity" "sha512-zDZhHhZRY9PxRruRMR7kMhnf3I8hDs4S3f9RecfnGxvcBHQcKcIH/oUcEWffsfl1XxdYlA7nnlGbbTvPz9D8gA=="
   "resolved" "https://registry.npmjs.org/socks/-/socks-2.6.2.tgz"
   "version" "2.6.2"
