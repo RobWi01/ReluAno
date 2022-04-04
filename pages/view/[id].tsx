@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     };
   }
-  const files = await getFiles(session.user.name);
+  const files = await getFiles();
   const { id } = ctx.query;
   const file_id = parseInt(id[0]);
   const file = await getFile(file_id);
