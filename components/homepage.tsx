@@ -34,7 +34,8 @@ export default function HomePage({ patients_input, files_input }: HomePageProps)
         // for (let i=0; i<newLoggedFiles.length; i++){
         //     loggedFiles.push(newLoggedFiles[i])
         // }
-        useCallback(() => setLoggedFiles(newLoggedFiles), [])
+        // useCallback(() => setLoggedFiles(newLoggedFiles), [])
+        setLoggedFiles(newLoggedFiles)
 
     }
 
