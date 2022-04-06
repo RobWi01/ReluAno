@@ -156,7 +156,7 @@ export default function Stlviewer({ file }: FileCardProps) {
         let filename = "Tooth_".concat(x.toString()).concat(y.toString());
 
         loader.load(
-          "http://localhost:3000/" + filename + ".stl",
+          "http://relu-ano.vercel.app/" + filename + ".stl",
           function (geometry) {
             let toothNr = parseInt(filename.split("_").pop());
             let a = Math.floor(toothNr / 10);
@@ -179,7 +179,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     }
 
     loader.load(
-      "http://localhost:3000/Mandible.stl",
+      "http://relu-ano.vercel.app/Mandible.stl",
       function (geometry) {
         const mesh = new THREE.Mesh(geometry, materialMandible);
         scene.add(mesh);
@@ -238,7 +238,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     });
 
     loader.load(
-      "http://localhost:3000/Skull.stl",
+      "http://relu-ano.vercel.app/Skull.stl",
       function (geometry) {
         const mesh = new THREE.Mesh(geometry, materialSkull);
         scene.add(mesh);
