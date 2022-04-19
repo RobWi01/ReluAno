@@ -57,15 +57,15 @@ export async function raycasting({ file }: FileCardProps) {
         raycaster.setFromCamera(mouse, camera);
         var intersects = raycaster.intersectObjects(scene.children);
         for (var i = 0; i < intersects.length; i++) {
-          if (intersects[i].object instanceof THREE.Mesh)
+          if (intersects[i].object instanceof THREE.Mesh && !changed){
             //@ts-ignore
             intersects[i].object.material.color.set(0xff0000);
-
-          console.log(intersects[i].point);
-
-          file.selected.position = intersects[i].point;
-          changed = true;
+            file.selected.position = intersects[i].point;
+            changed = true;
+            console.log(intersects[i].point)
+          }
         }
+  
 
         //code for coloring the selected mesh
         /*for (var i = 0; i < scene.children.length; i++) {
@@ -156,7 +156,7 @@ export default function Stlviewer({ file }: FileCardProps) {
         let filename = "Tooth_".concat(x.toString()).concat(y.toString());
 
         loader.load(
-          "http://relu-ano.vercel.app/" + filename + ".stl",
+          "http://localhost:3000/" + filename + ".stl",
           function (geometry) {
             let toothNr = parseInt(filename.split("_").pop());
             let a = Math.floor(toothNr / 10);
@@ -179,7 +179,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     }
 
     loader.load(
-      "http://relu-ano.vercel.app/Mandible.stl",
+      "http://localhost:3000/Mandible.stl",
       function (geometry) {
         const mesh = new THREE.Mesh(geometry, materialMandible);
         scene.add(mesh);
@@ -214,31 +214,32 @@ export default function Stlviewer({ file }: FileCardProps) {
         });
 
         const points = [];
+        if (startingpoint) {
+          points.push(startingpoint);
 
-        points.push(startingpoint);
+          points.push(new THREE.Vector3(endpoint[0], endpoint[1], endpoint[2]));
 
-        points.push(new THREE.Vector3(endpoint[0], endpoint[1], endpoint[2]));
+          const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+          theline = new THREE.Line(geometry, material);
+          scene.add(theline);
+          //end of code for drawing theline
 
-        theline = new THREE.Line(geometry, material);
-        scene.add(theline);
-        //end of code for drawing theline
-
-        //start code for textlabel
-        var tekstlabel = makeTextSprite(title, {
-          fontsize: 50,
-          borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
-          backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
-        });
-        tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
-        scene.add(tekstlabel);
-        //end code for text label
+          //start code for textlabel
+          var tekstlabel = makeTextSprite(title, {
+            fontsize: 50,
+            borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
+            backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
+          });
+          tekstlabel.position.set(endpoint[0] + 5, endpoint[1], endpoint[2]); //Define sprite's anchor point
+          scene.add(tekstlabel);
+          //end code for text label
+        }
       }
     });
 
     loader.load(
-      "http://relu-ano.vercel.app/Skull.stl",
+      "http://localhost:3000/Skull.stl",
       function (geometry) {
         const mesh = new THREE.Mesh(geometry, materialSkull);
         scene.add(mesh);
@@ -281,8 +282,7 @@ function init() {
 
   camera.position.set(0, -3, 3); // Set position like this
   //camera.rotation.set(0, 100, 0);
-  camera.lookAt(new THREE.Vector3(5, 0, -57.33));
-  camera.rotateOnAxis(new THREE.Vector3(1, 0, 0), 3.14);
+  requestAnimationFrame(render)
   camera.updateProjectionMatrix();
 
   //RENDERER
@@ -302,6 +302,9 @@ function animate() {
 
 function render() {
   followLight.position.copy(camera.position);
+
+  camera.lookAt(new THREE.Vector3(5, 0, -57.33));
+
   renderer.render(scene, camera);
 }
 

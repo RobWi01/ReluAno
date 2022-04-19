@@ -42,8 +42,8 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
     file.selected = new_card;
 
     //call raycaster function
-    raycasting({file})
-    
+    raycasting({ file })
+
     file.time = new Date().toLocaleString();
     file.card_ids.push(new_card._id);
     setCards([...cards, new_card]);
@@ -60,16 +60,12 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
     setSwipe(!swiped);
   };
 
- 
-
-
-
   return (
     <div className="flex items-center">
       {!swiped ? (
         <div
           className="border-black bg-gray-100 border flex flex-col items-center"
-          style={{ height: "calc(100vh - 48px)" }}
+          style={{ height: "calc(100vh - 48px)", overflow: "scroll"}}
         >
           <div id="header_annobar" className="flex justify-center items-center">
             <div className="flex justify-center text-6xl my-4 border-b-2 border-black h-fit pb-4 w-80">
@@ -82,12 +78,12 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
           <div className="divide-y-2 ">
             {cards.map((card, index) => {
               return (
-                  <AnnotationCard
-                    key={card._id}
-                    card={card}
-                    deleteCard={deleteCard}
-                    file={file}
-                  />
+                <AnnotationCard
+                  key={card._id}
+                  card={card}
+                  deleteCard={deleteCard}
+                  file={file}
+                />
               );
             })}
           </div>
