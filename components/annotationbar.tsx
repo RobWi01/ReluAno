@@ -79,7 +79,7 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
             {cards.map((card, index) => {
               return (
                 <AnnotationCard
-                  key={card._id}
+                  key={Object(card._id)}
                   card={card}
                   deleteCard={deleteCard}
                   file={file}
