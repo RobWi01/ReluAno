@@ -33,7 +33,7 @@ export interface user {
 }
 
 export interface ICard {
-  _id: ObjectId;
+  _id: Number;
   title: string;
   text: string;
   new?: boolean;
@@ -46,7 +46,7 @@ export interface IFile {
   title: string;
   time?: string;
   selected?: ICard;
-  card_ids: ObjectId[];
+  card_ids: Number[];
   cards?: ICard[];
   new?: boolean;
 }

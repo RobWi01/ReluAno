@@ -19,7 +19,7 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
   const [swiped, setSwipe] = useState(false);
   const [cards, setCards] = useState(file.cards);
 
-  const deleteCard = (cardID: number) => {
+  const deleteCard = (cardID: Number) => {
     setCards(cards.filter((card) => card._id != cardID));
     file.card_ids = file.card_ids.filter((IDs) => cardID != IDs);
     file.time = new Date().toLocaleString();
