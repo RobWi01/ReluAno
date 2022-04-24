@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { get } from "https";
 import _ from "lodash";
 import { NavBarHome } from "./NavBarHomepage";
+import PatientInfo from "./patientInfo";
 
 /*
 $ npm i -g npm
@@ -79,7 +80,7 @@ export default function HomePage({
   };
 
   return (
-    <div className="min-w-screen min-h-screen flex relative">
+    <div className="min-w-screen min-h-screen flex relative overflow-hidden">
       <div className="w-full absolute top-0">
         <NavBarHome />
       </div>
@@ -92,10 +93,16 @@ export default function HomePage({
           changePatient={changePatient}
         />
       </div>
-      <div
-        className="absolute right-10 top-16 w-1/3 overflow-y-auto"
-        style={{ height: "calc(100vh - 64px)" }}
-      >
+      <div className="absolute right-10 top-16 w-7/12 h-2/6 bg-gray-200">
+        <PatientInfo
+          selected_patient={selectedPatient}
+          files_input={[]}
+          addFile={undefined}
+          updateFile={undefined}
+          deleteFilecard={undefined}
+        />
+      </div>
+      <div className="absolute right-10 bottom-10 w-7/12 h-1/2 overflow-y-auto">
         <FileList
           files_input={loggedFiles}
           selected_patient={selectedPatient}
