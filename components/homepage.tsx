@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useSession } from "next-auth/react";
 import { get } from "https";
 import _ from "lodash";
-import { NavBarHome } from "./NavBarHomepage";
+import NavBarHome from "./NavBarHomepage";
 import PatientInfo from "./patientInfo";
 
 /*
@@ -26,21 +26,18 @@ export default function HomePage({
 }: HomePageProps) {
   const [selectedPatient, setSelectedPatient] = useState(patients_input[0]);
   const [files, setFiles] = useState(files_input);
-
-  console.log(patients_input);
+  const [patients, setPatients] = useState(patients_input);
 
   const getFilesFromPat = (patientID) => {
-    if (patients_input.length == 0) {
+    if (patients.length == 0) {
       return [];
     } else {
-      console.log(patientID);
       if (
-        patients_input.filter((patient) => patient._id == patientID)[0].file_ids
+        patients.filter((patient) => patient._id == patientID)[0].file_ids
           .length != 0
       ) {
-        console.log(patientID);
         const loggedFiles = files.filter((file) =>
-          patients_input
+          patients
             .filter((patient) => patient._id == patientID)[0]
             .file_ids.some((id) => file._id == id)
         );
@@ -55,16 +52,12 @@ export default function HomePage({
 
   // Deze functie dan mee doorgeven?
   const changePatient = (patient) => {
-    console.log("file ids: ", patient.file_ids);
     const newLoggedFiles = getFilesFromPat(patient._id); //Manier nog om patientID te linken
-    console.log("new: ", newLoggedFiles);
     setLoggedFiles(newLoggedFiles);
-    console.log(loggedFiles);
     setSelectedPatient(patient);
   };
 
   const addFile = (file) => {
-    console.log("files voor add: ", files);
     setFiles([...files, file]);
   };
 
@@ -79,18 +72,40 @@ export default function HomePage({
     setFiles(newFiles);
   };
 
+  const addPatient = (patient) => {
+    setPatients([...patients, patient]);
+  };
+
+  const deletePatient = (oldPatient) => {
+    const newPatients = patients.filter(
+      (patient) => oldPatient._id != patient._id
+    );
+    setPatients(newPatients);
+  };
+
+  const updatePatient = (patient) => {
+    const newPatients = patients.filter(
+      (oldpatient) => oldpatient._id != patient._id
+    );
+    newPatients.push(patient);
+    setPatients(newPatients);
+  };
+
   return (
     <div className="min-w-screen min-h-screen flex relative overflow-hidden">
       <div className="w-full absolute top-0">
-        <NavBarHome />
+        <NavBarHome changePatient={changePatient} patients={patients} />
       </div>
       <div
         className="absolute left-10 top-16 w-1/3 overflow-y-auto"
         style={{ height: "calc(100vh - 64px)" }}
       >
         <PatientList
-          patients_input={patients_input}
+          patients_input={patients}
           changePatient={changePatient}
+          addPatient={addPatient}
+          updatePatient={updatePatient}
+          deletePatientCard={deletePatient}
         />
       </div>
       <div className="absolute right-10 top-16 w-7/12 h-2/6 bg-gray-200">

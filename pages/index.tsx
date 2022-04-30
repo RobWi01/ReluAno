@@ -3,8 +3,6 @@ import { getFiles, getPatients } from "../lib/annotations";
 import { IPatient, IFile } from "../types";
 import HomePage from "../components/homepage";
 import { getSession } from "next-auth/react";
-import * as THREE from "three";
-//Nodig voor Vercel
 
 export default function Overview({ patients, files }) {
   return (
@@ -25,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!session) {
     return {
       redirect: {
-        destination: "/api/auth/signin",
+        destination: "/login",
         permanent: false,
       },
     };

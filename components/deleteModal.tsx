@@ -2,6 +2,7 @@ import React from "react";
 import { FcCheckmark, FcCancel } from "react-icons/fc";
 
 const OVERLAY_STYLES = {
+  position: "fixed",
   top: 0,
   left: -10,
   right: 0,
@@ -11,6 +12,7 @@ const OVERLAY_STYLES = {
 };
 
 const MODAL_STYLES = {
+  position: "fixed",
   top: "30%",
   left: "49%",
   transform: "translate(-50%, 50%)",

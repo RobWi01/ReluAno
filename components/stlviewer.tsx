@@ -1,25 +1,45 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState} from "react";
 
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 import { MeshLine, MeshLineMaterial } from "three.meshline";
-import { InstancedInterleavedBuffer } from "three";
+import { AxesHelper, InstancedInterleavedBuffer } from "three";
 
 import { IFile, ICard } from "../types";
 import { text } from "stream/consumers";
 import { Sprite } from "three";
 import { makeTextSprite } from "./makeTextSprite";
+// import { SpriteText2D, textAlign } from 'three-text2d'
+import CameraControls from '../camera-controls';
+
+CameraControls.install( { THREE: THREE } );
 
 type FileCardProps = {
   file: IFile;
 };
 
-let camera, scene, controls, renderer, followLight, light, theline;
+let dictPositions, clock, camera, scene, controls, renderer, followLight, light, theline;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || 100));
+}
+
+export function removecolor(file){
+  for (var j = 0; j < scene.children.length; j++) {
+    if (file.selected && scene.children[j].id == file.selected.intersect && scene.children[j].material){
+      scene.children[j].material.color.set(0xffffff);
+    }
+  }
+}
+
+export function addcolor(file){
+  for (var j = 0; j < scene.children.length; j++) {
+    if ((file.selected) && (scene.children[j].id == file.selected.intersect) && (scene.children[j].material)){
+      scene.children[j].material.color.set(0xff0000);
+    }
+  }
 }
 
 export async function raycasting({ file }: FileCardProps) {
@@ -57,15 +77,16 @@ export async function raycasting({ file }: FileCardProps) {
         raycaster.setFromCamera(mouse, camera);
         var intersects = raycaster.intersectObjects(scene.children);
         for (var i = 0; i < intersects.length; i++) {
-          if (intersects[i].object instanceof THREE.Mesh && !changed){
+          if (intersects[i].object instanceof THREE.Mesh && !changed) {
             //@ts-ignore
-            intersects[i].object.material.color.set(0xff0000);
             file.selected.position = intersects[i].point.clone();
             file.selected.endPosition = intersects[i].point.setLength(100);
+            //@ts-ignore
+            file.selected.intersect = intersects[i].object.id;
+            addcolor(file);
             changed = true;
           }
         }
-  
 
         //code for coloring the selected mesh
         /*for (var i = 0; i < scene.children.length; i++) {
@@ -104,6 +125,8 @@ export async function raycasting({ file }: FileCardProps) {
   });
 }
 
+
+
 export default function Stlviewer({ file }: FileCardProps) {
   const threeContainerRef = useRef(null);
 
@@ -113,7 +136,7 @@ export default function Stlviewer({ file }: FileCardProps) {
     //add Container to renderer
     threeContainerRef.current.appendChild(renderer.domElement);
 
-    //dunno what this do @aline @thomas
+    //dunno what this do
     window.addEventListener("resize", onWindowResize, false);
     function onWindowResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -150,23 +173,29 @@ export default function Stlviewer({ file }: FileCardProps) {
         materials.push(materialTooth);
       }
     }
-
+    dictPositions = {};
     for (var x = 1; x < 5; x++) {
-      for (var y = 1; y < 7; y++) {
+      for (var y = 1; y < 9; y++) {
         let filename = "Tooth_".concat(x.toString()).concat(y.toString());
 
         loader.load(
-          "https://annosend.blob.core.windows.net/stl-files/" + filename + ".stl",
+          "https://annosend.blob.core.windows.net/stl-files/" +
+            filename +
+            ".stl",
           function (geometry) {
+            geometry.translate(0,0,35)
             let toothNr = parseInt(filename.split("_").pop());
             let a = Math.floor(toothNr / 10);
             let b = toothNr % 10;
 
             const mesh = new THREE.Mesh(
               geometry,
-              materials[(a - 1) * 6 + (b - 1)]
+              materials.pop()
             );
             scene.add(mesh);
+            mesh.name = filename;
+            console.log(filename)
+            getAbsolutePosition(mesh, dictPositions);
           },
           (xhr) => {
             console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -181,8 +210,10 @@ export default function Stlviewer({ file }: FileCardProps) {
     loader.load(
       "https://annosend.blob.core.windows.net/stl-files/Mandible.stl",
       function (geometry) {
+        geometry.translate(0,0,35)
         const mesh = new THREE.Mesh(geometry, materialMandible);
         scene.add(mesh);
+        getAbsolutePosition(mesh, dictPositions)
       },
       (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -191,6 +222,7 @@ export default function Stlviewer({ file }: FileCardProps) {
         console.log(error);
       }
     );
+
 
     document.addEventListener("dblclick", function (event) {
       if (file.selected) {
@@ -205,7 +237,6 @@ export default function Stlviewer({ file }: FileCardProps) {
         //variabeles for determining the postion of the text label and corresponding line
         var startingpoint = file.selected.position; //get startingpoint out of selected card
         var endpoint = file.selected.endPosition; //to be calculated
-       
 
         //start of code for drawing theline
         const material = new THREE.LineBasicMaterial({
@@ -226,8 +257,10 @@ export default function Stlviewer({ file }: FileCardProps) {
           var tekstlabel = makeTextSprite(title, {
             fontsize: 50,
             borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
-            backgroundColor: { r: 0, g: 0, b: 150, a: 0.8 },
+            backgroundColor: { r: 169, g: 169, b: 169, a: 1.0 },
           });
+
+          // var tekstlabel = new SpriteText2D("SPRITE", { align: textAlign.center,  font: '40px Arial', fillStyle: '#000000' , antialias: false })
           tekstlabel.position.set(endpoint.x + 5, endpoint.y, endpoint.z); //Define sprite's anchor point
           scene.add(tekstlabel);
           //end code for text label
@@ -235,30 +268,31 @@ export default function Stlviewer({ file }: FileCardProps) {
       }
     });
 
-    loader.load(
-      "https://annosend.blob.core.windows.net/stl-files/Skull.stl",
-      function (geometry) {
-        const mesh = new THREE.Mesh(geometry, materialSkull);
-        scene.add(mesh);
-      },
-      (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    // loader.load(
+    //   "https://annosend.blob.core.windows.net/stl-files/Skull.stl",
+    //   function (geometry) {
+    //     const mesh = new THREE.Mesh(geometry, materialSkull);
+    //     scene.add(mesh);
+    //   },
+    //   (xhr) => {
+    //     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
 
-    animate();
+    anim();
   });
 
-  return <div ref={threeContainerRef} />;
+  return<div ref={threeContainerRef}/>;
 }
 
 function init() {
   //creating scene
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xffffff);
+  scene.background = new THREE.Color(0xffffff)
+
   //light
   followLight = new THREE.DirectionalLight(0xffffff, 1.0);
   followLight.position.set(20, 100, 10);
@@ -268,6 +302,8 @@ function init() {
 
   light = new THREE.AmbientLight(0x404040);
   scene.add(light);
+  const axesHelper = new THREE.AxesHelper(5);
+  scene.add( axesHelper);
 
   //CAMERA
   camera = new THREE.PerspectiveCamera(
@@ -277,37 +313,67 @@ function init() {
     1000 //distance from camera objects stops appearing
   );
 
-  camera.position.set(0, -3, 3); // Set position like this
+  camera.position.set(0, -128, 0); // Set position like this
   //camera.rotation.set(0, 100, 0);
-  requestAnimationFrame(render)
+  requestAnimationFrame(render);
   camera.updateProjectionMatrix();
+  camera.up.set( 0, 0, 1 )
 
   //RENDERER
   renderer = new THREE.WebGLRenderer();
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  //CONTROLS
-  controls = new OrbitControls(camera, renderer.domElement);
+  //CONTROLS + CLOCK
+  clock = new THREE.Clock();
+  controls = new CameraControls( camera, renderer.domElement );
+  controls.mouseButtons.left = CameraControls.ACTION.TRUCK;
+  controls.mouseButtons.left = CameraControls.ACTION.TOUCH_ROTATE;
 }
 
-function animate() {
-  requestAnimationFrame(animate);
-  controls.update();
-  render();
-}
+function anim () {
+
+	const delta = clock.getDelta();
+	const hasControlsUpdated = controls.update( delta );
+
+	requestAnimationFrame( anim );
+
+	if ( hasControlsUpdated ) {
+
+		renderer.render( scene, camera );
+
+	}
+
+  render()
+
+};
 
 function render() {
   followLight.position.copy(camera.position);
 
-  camera.lookAt(new THREE.Vector3(5, 0, -57.33));
+  //camera.lookAt(new THREE.Vector3(5, 0, -57.33));
 
   renderer.render(scene, camera);
 }
 
-//FUNCTION FOR BUTTONS IN "Tanden" TO ADAPT CAMARA PERSPECTIVE WHEN PUSHED ON
-function ChangePerspective(x, y, z) {
-  camera.position.set(x, y, z);
-  camera.updateProjectionMatrix();
-  render(); //moet dit erbij?
+function getAbsolutePosition(mesh, dictPositions){
+  mesh.geometry.computeBoundingBox();
+
+  var boundingBox = mesh.geometry.boundingBox;
+  var position = new THREE.Vector3();
+
+  position.subVectors( boundingBox.max, boundingBox.min );
+  position.multiplyScalar( 0.5 );
+  position.add( boundingBox.min );
+  position.applyMatrix4( mesh.matrixWorld );
+  dictPositions[mesh.name] = position
 }
+
+function filter(id)
+{
+  scene.children = scene.children.filter(
+    (child) => !(child.id == id)
+  );
+}
+
+export {controls, scene, theline, dictPositions};

@@ -34,12 +34,13 @@ export interface user {
 }
 
 export interface ICard {
-  _id: Number;
+  _id: ObjectId;
   title: string;
   text: string;
   new?: boolean;
   position?: THREE.Vector3; // start position line
   endPosition?: THREE.Vector3; // end position line
+  intersect?: number; //for coloring
 }
 
 export interface IFile {
@@ -47,7 +48,7 @@ export interface IFile {
   title: string;
   time?: string;
   selected?: ICard;
-  card_ids: Number[];
+  card_ids: ObjectId[];
   cards?: ICard[];
   new?: boolean;
 }
@@ -55,7 +56,11 @@ export interface IFile {
 export interface IPatient {
   _id: ObjectId;
   name: string;
+  sex: string;
+  birth: string;
+  extraInfo: string;
   user_id: string;
   file_ids?: ObjectId[];
   new?: boolean;
+  picture?: string;
 }
