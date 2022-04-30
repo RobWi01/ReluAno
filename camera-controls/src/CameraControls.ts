@@ -2005,6 +2005,7 @@ export class CameraControls extends EventDispatcher {
 
 		// const heightToFit = boundingRectAspect < aspect ? height : width / aspect;
 		// return heightToFit * 0.5 / Math.tan( fov * 0.5 ) + depth * 0.5;
+		return 0
 
 	}
 
@@ -2018,11 +2019,12 @@ export class CameraControls extends EventDispatcher {
 
 		if ( notSupportedInOrthographicCamera( this._camera, 'getDistanceToFitSphere' ) ) return this._spherical.radius;
 
-		// https://stackoverflow.com/a/44849975
-		const vFOV = this._camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
-		const hFOV = Math.atan( Math.tan( vFOV * 0.5 ) * this._camera.aspect ) * 2;
-		const fov = 1 < this._camera.aspect ? vFOV : hFOV;
-		return radius / ( Math.sin( fov * 0.5 ) );
+		// // https://stackoverflow.com/a/44849975
+		// const vFOV = this._camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
+		// const hFOV = Math.atan( Math.tan( vFOV * 0.5 ) * this._camera.aspect ) * 2;
+		// const fov = 1 < this._camera.aspect ? vFOV : hFOV;
+		// return radius / ( Math.sin( fov * 0.5 ) );
+		return 0
 
 	}
 
