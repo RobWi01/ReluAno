@@ -23,6 +23,7 @@ import {
 } from '../../util/structuresCBCT';
 
 const onSwipe = (teeth_id) => {
+
 	if (dictPositions[teeth_id] == undefined){
 		alert("This tooth is not present");
 		return;
@@ -32,10 +33,15 @@ const onSwipe = (teeth_id) => {
 	var posy = dictPositions[teeth_id].y;
 	var posz = dictPositions[teeth_id].z;
 
-	const myArray = teeth_id.split("_");
-	console.log(myArray[1])
-	
-	if (Number(myArray[1]) > 28){
+	const teethIDS = teeth_id.split("_");
+
+	if (teethIDS[1] == "17"){
+		controls.setLookAt(-49, -0.6, 10.44, posx, posy, posz, true);
+	}
+	else if (teethIDS[1] == "27"){
+		controls.setLookAt(51, -0.6, 10.44, posx, posy, posz, true);
+	}
+	else if (Number(teethIDS[1]) > 28){
 		controls.setLookAt(2*posx, 2*posy, 0, posx, posy, posz, true);
 	}
 	else{
