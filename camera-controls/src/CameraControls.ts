@@ -2541,12 +2541,12 @@ export class CameraControls extends EventDispatcher {
 		} else if ( isOrthographicCamera( this._camera ) ) {
 
 			// orthographic
-			const camera = this._camera;
-			const truckX    = deltaX * ( camera.right - camera.left   ) / camera.zoom / this._elementRect.width;
-			const pedestalY = deltaY * ( camera.top   - camera.bottom ) / camera.zoom / this._elementRect.height;
-			dragToOffset ?
-				this.setFocalOffset( this._focalOffsetEnd.x + truckX, this._focalOffsetEnd.y + pedestalY, this._focalOffsetEnd.z, true ) :
-				this.truck( truckX, pedestalY, true );
+			// const camera = this._camera;
+			// const truckX    = deltaX * ( camera.right - camera.left   ) / camera.zoom / this._elementRect.width;
+			// const pedestalY = deltaY * ( camera.top   - camera.bottom ) / camera.zoom / this._elementRect.height;
+			// dragToOffset ?
+			// 	this.setFocalOffset( this._focalOffsetEnd.x + truckX, this._focalOffsetEnd.y + pedestalY, this._focalOffsetEnd.z, true ) :
+			// 	this.truck( truckX, pedestalY, true );
 
 		}
 
