@@ -2627,7 +2627,7 @@ export class CameraControls extends EventDispatcher {
 		// divide by distance to normalize, lighter than `Vector3.prototype.normalize()`
 		const direction = _v3A.setFromSpherical( this._spherical ).divideScalar( this._spherical.radius );
 
-		_rotationMatrix.lookAt( _ORIGIN, direction, this._camera.up );
+		_rotationMatrix.lookAt( _ORIGIN, direction, this.camera.up );
 
 		for ( let i = 0; i < 4; i ++ ) {
 
