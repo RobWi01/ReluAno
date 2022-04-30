@@ -1711,11 +1711,11 @@ export class CameraControls extends EventDispatcher {
 
 		} else if ( isOrthographicCamera( this._camera ) ) {
 
-			const width = this._camera.right - this._camera.left;
-			const height = this._camera.top - this._camera.bottom;
-			const diameter = 2 * boundingSphere.radius;
-			const zoom = Math.min( width / diameter, height / diameter );
-			promises.push( this.zoomTo( zoom, enableTransition ) );
+			// const width = this._camera.right - this._camera.left;
+			// const height = this._camera.top - this._camera.bottom;
+			// const diameter = 2 * boundingSphere.radius;
+			// const zoom = Math.min( width / diameter, height / diameter );
+			// promises.push( this.zoomTo( zoom, enableTransition ) );
 
 		}
 
