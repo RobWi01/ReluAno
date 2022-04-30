@@ -25,9 +25,9 @@ export default function FileCard({
   updateFile,
   deleteFilecard,
 }: FileCardProps) {
-  const [editing, setEdit] = useState(file.new);
-  const [title, setTitle] = useState(file.title);
-  const [isOpen, setIsOpen] = useState(false);
+  const [editing, setEdit] = useState<any>(file.new);
+  const [title, setTitle] = useState<any>(file.title);
+  const [isOpen, setIsOpen] = useState<any>(false);
 
   const onDelete = () => {
     deleteFile(file._id);

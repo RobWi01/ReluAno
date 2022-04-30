@@ -33,10 +33,10 @@ export default function PatientCard({
   updatePatient,
   deletePatientCard,
 }: PatientCardProps) {
-  const [editing, setEdit] = useState(patient.new);
-  const [name, setName] = useState(patient.name);
-  const [isOpen, setIsOpen] = useState(false);
-  const [editOpen, setEditOpen] = useState(false);
+  const [editing, setEdit] = useState<any>(patient.new);
+  const [name, setName] = useState<any>(patient.name);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [editOpen, setEditOpen] = useState<boolean>(false);
 
   const onDelete = () => {
     deletePatient(patient._id);

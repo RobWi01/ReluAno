@@ -23,11 +23,11 @@ export const EditForm = ({
   patient,
   updatePatient,
 }: AddFormProps) => {
-  const [name, setName] = useState(patient.name);
-  const [gender_Patient, setGender] = useState(patient.sex);
-  const [birthdate, setBirthDate] = useState(patient.birth);
-  const [extraText, setExtraText] = useState(patient.extraInfo);
-  const [imageFile, setImageFile] = useState(patient.picture);
+  const [name, setName] = useState<any>(patient.name);
+  const [gender_Patient, setGender] = useState<any>(patient.sex);
+  const [birthdate, setBirthDate] = useState<any>(patient.birth);
+  const [extraText, setExtraText] = useState<any>(patient.extraInfo);
+  const [imageFile, setImageFile] = useState<any>(patient.picture);
 
   const onSubmit = () => {
     patient.name = name;

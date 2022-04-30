@@ -23,7 +23,7 @@ export const Navigation = ({
   const selectedPatient = patients_input.filter((patient) =>
     patient.file_ids.includes(file._id)
   )[0];
-  const [files, setFiles] = useState(
+  const [files, setFiles] = useState<any>(
     files_input.filter((fileFromPatient) =>
       selectedPatient.file_ids.includes(fileFromPatient._id)
     )

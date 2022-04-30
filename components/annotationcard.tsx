@@ -15,10 +15,10 @@ export default function AnnotationCard({
     deleteCard,
     file,
 }: AnnotationCardProps) {
-    const [editing, setEdit] = useState(card.new);
-    const [title, setTitle] = useState(card.title);
-    const [text, setText] = useState(card.text);
-    const [isOpen, setIsOpen] = useState(false);
+    const [editing, setEdit] = useState<any>(card.new);
+    const [title, setTitle] = useState<any>(card.title);
+    const [text, setText] = useState<any>(card.text);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const toggleEdit = () => {
         if (editing && (title != card.title || text != card.text)) {
