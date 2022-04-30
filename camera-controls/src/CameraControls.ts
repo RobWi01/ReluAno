@@ -1669,13 +1669,13 @@ export class CameraControls extends EventDispatcher {
 
 		} else if ( isOrthographicCamera( this._camera ) ) {
 
-			const camera = this._camera;
-			const width = camera.right - camera.left;
-			const height = camera.top - camera.bottom;
-			const zoom = Math.min( width / bbSize.x, height / bbSize.y );
-			promises.push( this.moveTo( center.x, center.y, center.z, enableTransition ) );
-			promises.push( this.zoomTo( zoom, enableTransition ) );
-			promises.push( this.setFocalOffset( 0, 0, 0, enableTransition ) );
+			// const camera = this._camera;
+			// const width = camera.right - camera.left;
+			// const height = camera.top - camera.bottom;
+			// const zoom = Math.min( width / bbSize.x, height / bbSize.y );
+			// promises.push( this.moveTo( center.x, center.y, center.z, enableTransition ) );
+			// promises.push( this.zoomTo( zoom, enableTransition ) );
+			// promises.push( this.setFocalOffset( 0, 0, 0, enableTransition ) );
 
 		}
 
