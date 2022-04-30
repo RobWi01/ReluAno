@@ -2487,17 +2487,17 @@ export class CameraControls extends EventDispatcher {
 
 		} else if ( isOrthographicCamera( this._camera ) ) {
 
-			const camera = this._camera;
-			const zoomInv = 1 / camera.zoom;
-			const left   = camera.left   * zoomInv;
-			const right  = camera.right  * zoomInv;
-			const top    = camera.top    * zoomInv;
-			const bottom = camera.bottom * zoomInv;
+			// const camera = this._camera;
+			// const zoomInv = 1 / camera.zoom;
+			// const left   = camera.left   * zoomInv;
+			// const right  = camera.right  * zoomInv;
+			// const top    = camera.top    * zoomInv;
+			// const bottom = camera.bottom * zoomInv;
 
-			this._nearPlaneCorners[ 0 ].set( left,  top,    0 );
-			this._nearPlaneCorners[ 1 ].set( right, top,    0 );
-			this._nearPlaneCorners[ 2 ].set( right, bottom, 0 );
-			this._nearPlaneCorners[ 3 ].set( left,  bottom, 0 );
+			// this._nearPlaneCorners[ 0 ].set( left,  top,    0 );
+			// this._nearPlaneCorners[ 1 ].set( right, top,    0 );
+			// this._nearPlaneCorners[ 2 ].set( right, bottom, 0 );
+			// this._nearPlaneCorners[ 3 ].set( left,  bottom, 0 );
 
 		}
 
