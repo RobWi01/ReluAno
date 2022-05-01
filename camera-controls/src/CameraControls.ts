@@ -2487,17 +2487,17 @@ export class CameraControls extends EventDispatcher {
 
 		} else if ( isOrthographicCamera( this._camera ) ) {
 
-			const camera = this._camera;
-			const zoomInv = 1 / camera.zoom;
-			const left   = camera.left   * zoomInv;
-			const right  = camera.right  * zoomInv;
-			const top    = camera.top    * zoomInv;
-			const bottom = camera.bottom * zoomInv;
+			// const camera = this._camera;
+			// const zoomInv = 1 / camera.zoom;
+			// const left   = camera.left   * zoomInv;
+			// const right  = camera.right  * zoomInv;
+			// const top    = camera.top    * zoomInv;
+			// const bottom = camera.bottom * zoomInv;
 
-			this._nearPlaneCorners[ 0 ].set( left,  top,    0 );
-			this._nearPlaneCorners[ 1 ].set( right, top,    0 );
-			this._nearPlaneCorners[ 2 ].set( right, bottom, 0 );
-			this._nearPlaneCorners[ 3 ].set( left,  bottom, 0 );
+			// this._nearPlaneCorners[ 0 ].set( left,  top,    0 );
+			// this._nearPlaneCorners[ 1 ].set( right, top,    0 );
+			// this._nearPlaneCorners[ 2 ].set( right, bottom, 0 );
+			// this._nearPlaneCorners[ 3 ].set( left,  bottom, 0 );
 
 		}
 
@@ -2540,13 +2540,13 @@ export class CameraControls extends EventDispatcher {
 
 		} else if ( isOrthographicCamera( this._camera ) ) {
 
-			// orthographic
-			const camera = this._camera;
-			const truckX    = deltaX * ( camera.right - camera.left   ) / camera.zoom / this._elementRect.width;
-			const pedestalY = deltaY * ( camera.top   - camera.bottom ) / camera.zoom / this._elementRect.height;
-			dragToOffset ?
-				this.setFocalOffset( this._focalOffsetEnd.x + truckX, this._focalOffsetEnd.y + pedestalY, this._focalOffsetEnd.z, true ) :
-				this.truck( truckX, pedestalY, true );
+			// // orthographic
+			// const camera = this._camera;
+			// const truckX    = deltaX * ( camera.right - camera.left   ) / camera.zoom / this._elementRect.width;
+			// const pedestalY = deltaY * ( camera.top   - camera.bottom ) / camera.zoom / this._elementRect.height;
+			// dragToOffset ?
+			// 	this.setFocalOffset( this._focalOffsetEnd.x + truckX, this._focalOffsetEnd.y + pedestalY, this._focalOffsetEnd.z, true ) :
+			// 	this.truck( truckX, pedestalY, true );
 
 		}
 
