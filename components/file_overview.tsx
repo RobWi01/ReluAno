@@ -21,7 +21,7 @@ export default function FileList({
   updateFile,
   deleteFilecard,
 }: FileListProps) {
-  const [files, setFiles] = useState<any>(files_input);
+  const [files, setFiles] = useState(files_input);
 
   useEffect(() => {
     setFiles(files_input);

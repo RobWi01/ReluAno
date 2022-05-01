@@ -23,7 +23,7 @@ export const Navigation = ({
   const selectedPatient = patients_input.filter((patient) =>
     patient.file_ids.includes(file._id)
   )[0];
-  const [files, setFiles] = useState<any>(
+  const [files, setFiles] = useState(
     files_input.filter((fileFromPatient) =>
       selectedPatient.file_ids.includes(fileFromPatient._id)
     )
@@ -52,7 +52,7 @@ export const Navigation = ({
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+            <Nav className="me-auto space-x-4">
               <NavDropdown title={selectedPatient.name} id="basic-nav-dropdown">
                 {files.map((file, index) => {
                   return (

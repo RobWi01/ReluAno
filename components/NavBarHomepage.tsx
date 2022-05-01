@@ -26,7 +26,7 @@ export default function NavBarHome({
   patients,
   changePatient,
 }: NavBarHomeProps) {
-  const [inputName, setInputName] = useState<any>([]);
+  const [inputName, setInputName] = useState([]);
   let patientsNames = [];
   patients.map((patient) => {
     patientsNames.push(patient.name);

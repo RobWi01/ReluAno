@@ -280,7 +280,7 @@ export class CameraControls extends EventDispatcher {
 
 	/**
 	 * Controls how soon the `rest` event fires as the camera slows.
-	 * @category u
+	 * @category Properties
 	 */
 	restThreshold = 0.01;
 
@@ -1999,13 +1999,12 @@ export class CameraControls extends EventDispatcher {
 
 		if ( notSupportedInOrthographicCamera( this._camera, 'getDistanceToFitBox' ) ) return this._spherical.radius;
 
-		// const boundingRectAspect = width / height;
-		// const fov = this._camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
-		// const aspect = this._camera.aspect;
+		const boundingRectAspect = width / height;
+		const fov = this._camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
+		const aspect = this._camera.aspect;
 
-		// const heightToFit = boundingRectAspect < aspect ? height : width / aspect;
-		// return heightToFit * 0.5 / Math.tan( fov * 0.5 ) + depth * 0.5;
-		return 0
+		const heightToFit = boundingRectAspect < aspect ? height : width / aspect;
+		return heightToFit * 0.5 / Math.tan( fov * 0.5 ) + depth * 0.5;
 
 	}
 
@@ -2019,12 +2018,11 @@ export class CameraControls extends EventDispatcher {
 
 		if ( notSupportedInOrthographicCamera( this._camera, 'getDistanceToFitSphere' ) ) return this._spherical.radius;
 
-		// // https://stackoverflow.com/a/44849975
-		// const vFOV = this._camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
-		// const hFOV = Math.atan( Math.tan( vFOV * 0.5 ) * this._camera.aspect ) * 2;
-		// const fov = 1 < this._camera.aspect ? vFOV : hFOV;
-		// return radius / ( Math.sin( fov * 0.5 ) );
-		return 0
+		// https://stackoverflow.com/a/44849975
+		const vFOV = this._camera.getEffectiveFOV() * THREE.MathUtils.DEG2RAD;
+		const hFOV = Math.atan( Math.tan( vFOV * 0.5 ) * this._camera.aspect ) * 2;
+		const fov = 1 < this._camera.aspect ? vFOV : hFOV;
+		return radius / ( Math.sin( fov * 0.5 ) );
 
 	}
 
@@ -2199,22 +2197,22 @@ export class CameraControls extends EventDispatcher {
 
 			} else if ( isOrthographicCamera( this._camera ) ) {
 
-				// const camera = this._camera;
+				const camera = this._camera;
 
-				// const worldPosition = _v3A.set(
-				// 	this._dollyControlCoord.x,
-				// 	this._dollyControlCoord.y,
-				// 	( camera.near + camera.far ) / ( camera.near - camera.far )
-				// ).unproject( camera );
+				const worldPosition = _v3A.set(
+					this._dollyControlCoord.x,
+					this._dollyControlCoord.y,
+					( camera.near + camera.far ) / ( camera.near - camera.far )
+				).unproject( camera );
 
-				// const quaternion = _v3B.set( 0, 0, - 1 ).applyQuaternion( camera.quaternion );
+				const quaternion = _v3B.set( 0, 0, - 1 ).applyQuaternion( camera.quaternion );
 
-				// const divisor = quaternion.dot( camera.up );
-				// const distance = approxZero( divisor ) ? - worldPosition.dot( camera.up ) : - worldPosition.dot( camera.up ) / divisor;
-				// const cursor = _v3C.copy( worldPosition ).add( quaternion.multiplyScalar( distance ) );
+				const divisor = quaternion.dot( camera.up );
+				const distance = approxZero( divisor ) ? - worldPosition.dot( camera.up ) : - worldPosition.dot( camera.up ) / divisor;
+				const cursor = _v3C.copy( worldPosition ).add( quaternion.multiplyScalar( distance ) );
 
-				// this._targetEnd.lerp( cursor, 1 - camera.zoom / this._dollyControlAmount );
-				// this._target.copy( this._targetEnd );
+				this._targetEnd.lerp( cursor, 1 - camera.zoom / this._dollyControlAmount );
+				this._target.copy( this._targetEnd );
 
 			}
 
@@ -2487,17 +2485,17 @@ export class CameraControls extends EventDispatcher {
 
 		} else if ( isOrthographicCamera( this._camera ) ) {
 
-			// const camera = this._camera;
-			// const zoomInv = 1 / camera.zoom;
-			// const left   = camera.left   * zoomInv;
-			// const right  = camera.right  * zoomInv;
-			// const top    = camera.top    * zoomInv;
-			// const bottom = camera.bottom * zoomInv;
+			const camera = this._camera;
+			const zoomInv = 1 / camera.zoom;
+			const left   = camera.left   * zoomInv;
+			const right  = camera.right  * zoomInv;
+			const top    = camera.top    * zoomInv;
+			const bottom = camera.bottom * zoomInv;
 
-			// this._nearPlaneCorners[ 0 ].set( left,  top,    0 );
-			// this._nearPlaneCorners[ 1 ].set( right, top,    0 );
-			// this._nearPlaneCorners[ 2 ].set( right, bottom, 0 );
-			// this._nearPlaneCorners[ 3 ].set( left,  bottom, 0 );
+			this._nearPlaneCorners[ 0 ].set( left,  top,    0 );
+			this._nearPlaneCorners[ 1 ].set( right, top,    0 );
+			this._nearPlaneCorners[ 2 ].set( right, bottom, 0 );
+			this._nearPlaneCorners[ 3 ].set( left,  bottom, 0 );
 
 		}
 
@@ -2541,12 +2539,12 @@ export class CameraControls extends EventDispatcher {
 		} else if ( isOrthographicCamera( this._camera ) ) {
 
 			// orthographic
-			// const camera = this._camera;
-			// const truckX    = deltaX * ( camera.right - camera.left   ) / camera.zoom / this._elementRect.width;
-			// const pedestalY = deltaY * ( camera.top   - camera.bottom ) / camera.zoom / this._elementRect.height;
-			// dragToOffset ?
-			// 	this.setFocalOffset( this._focalOffsetEnd.x + truckX, this._focalOffsetEnd.y + pedestalY, this._focalOffsetEnd.z, true ) :
-			// 	this.truck( truckX, pedestalY, true );
+			const camera = this._camera;
+			const truckX    = deltaX * ( camera.right - camera.left   ) / camera.zoom / this._elementRect.width;
+			const pedestalY = deltaY * ( camera.top   - camera.bottom ) / camera.zoom / this._elementRect.height;
+			dragToOffset ?
+				this.setFocalOffset( this._focalOffsetEnd.x + truckX, this._focalOffsetEnd.y + pedestalY, this._focalOffsetEnd.z, true ) :
+				this.truck( truckX, pedestalY, true );
 
 		}
 
@@ -2627,7 +2625,7 @@ export class CameraControls extends EventDispatcher {
 		// divide by distance to normalize, lighter than `Vector3.prototype.normalize()`
 		const direction = _v3A.setFromSpherical( this._spherical ).divideScalar( this._spherical.radius );
 
-		_rotationMatrix.lookAt( _ORIGIN, direction, this.camera.up );
+		_rotationMatrix.lookAt( _ORIGIN, direction, this._camera.up );
 
 		for ( let i = 0; i < 4; i ++ ) {
 

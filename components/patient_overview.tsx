@@ -32,8 +32,8 @@ export default function PatientList({
   updatePatient,
   deletePatientCard,
 }: PatientListProps) {
-  const [patients, setPatient] = useState<any>(patients_input);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [patients, setPatient] = useState(patients_input);
+  const [isOpen, setIsOpen] = useState(false);
   const session = useSession();
 
   const deletePatient = (patientID) => {

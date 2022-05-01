@@ -16,7 +16,7 @@ type FileListProps = {
 };
 
 export default function PatientInfo({ selected_patient }: FileListProps) {
-  const [image, setImage] = useState<boolean>(false);
+  const [image, setImage] = useState(false);
 
   return (
     <div className="relative min-h-full min-w-full ">

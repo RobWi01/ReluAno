@@ -24,9 +24,9 @@ export default function HomePage({
   patients_input,
   files_input,
 }: HomePageProps) {
-  const [selectedPatient, setSelectedPatient] = useState<any>(patients_input[0]);
-  const [files, setFiles] = useState<any>(files_input);
-  const [patients, setPatients] = useState<any>(patients_input);
+  const [selectedPatient, setSelectedPatient] = useState(patients_input[0]);
+  const [files, setFiles] = useState(files_input);
+  const [patients, setPatients] = useState(patients_input);
 
   const getFilesFromPat = (patientID) => {
     if (patients.length == 0) {
@@ -48,7 +48,7 @@ export default function HomePage({
     }
   };
 
-  const [loggedFiles, setLoggedFiles] = useState<any>([]);
+  const [loggedFiles, setLoggedFiles] = useState([]);
 
   // Deze functie dan mee doorgeven?
   const changePatient = (patient) => {

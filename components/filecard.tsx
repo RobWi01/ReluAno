@@ -9,6 +9,18 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import DeleteModal from "./deleteModal";
+import Modal from "react-modal";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 type FileCardProps = {
   file: IFile;
@@ -25,9 +37,9 @@ export default function FileCard({
   updateFile,
   deleteFilecard,
 }: FileCardProps) {
-  const [editing, setEdit] = useState<any>(file.new);
-  const [title, setTitle] = useState<any>(file.title);
-  const [isOpen, setIsOpen] = useState<any>(false);
+  const [editing, setEdit] = useState(file.new);
+  const [title, setTitle] = useState(file.title);
+  const [isOpen, setIsOpen] = useState(false);
 
   const onDelete = () => {
     deleteFile(file._id);
@@ -99,7 +111,7 @@ export default function FileCard({
           </a>
         </a>
       </div>
-      <div className="absolute flex right-0 min-h-full top-0">
+      <div className="absolute flex right-0 min-h-full top-0 space-x-2">
         <button onClick={toggleEdit}>
           {editing ? (
             <AiOutlineSave className="text-3xl" />
@@ -108,13 +120,14 @@ export default function FileCard({
           )}
         </button>
         {isOpen ? (
-          <DeleteModal
-            open={isOpen}
-            onClose={() => setIsOpen(false)}
-            onDelete={onDelete}
-          >
-            Wil je de scan verwijderen?
-          </DeleteModal>
+          <Modal isOpen={isOpen} style={customStyles}>
+            <DeleteModal
+              open={isOpen}
+              onClose={() => setIsOpen(false)}
+              onDelete={onDelete}
+              string={"Wilt u dit bestand verwijderen?"}
+            ></DeleteModal>
+          </Modal>
         ) : (
           <button onClick={() => setIsOpen(true)}>
             <AiOutlineDelete className="w-7 h-7" />

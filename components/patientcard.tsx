@@ -33,10 +33,10 @@ export default function PatientCard({
   updatePatient,
   deletePatientCard,
 }: PatientCardProps) {
-  const [editing, setEdit] = useState<any>(patient.new);
-  const [name, setName] = useState<any>(patient.name);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [editOpen, setEditOpen] = useState<boolean>(false);
+  const [editing, setEdit] = useState(patient.new);
+  const [name, setName] = useState(patient.name);
+  const [isOpen, setIsOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
 
   const onDelete = () => {
     deletePatient(patient._id);
@@ -102,13 +102,14 @@ export default function PatientCard({
             )}
           </button>
           {isOpen ? (
-            <DeleteModal
-              open={isOpen}
-              onClose={() => setIsOpen(false)}
-              onDelete={onDelete}
-            >
-              Wil je deze patiënt verwijderen?
-            </DeleteModal>
+            <Modal isOpen={isOpen} style={customStyles}>
+              <DeleteModal
+                open={isOpen}
+                onClose={() => setIsOpen(false)}
+                onDelete={onDelete}
+                string={"Wilt u deze patiënt verwijderen?"}
+              ></DeleteModal>
+            </Modal>
           ) : (
             <button onClick={() => setIsOpen(true)}>
               <AiOutlineDelete className="text-3xl" />
