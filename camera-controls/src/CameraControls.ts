@@ -2625,30 +2625,31 @@ export class CameraControls extends EventDispatcher {
 		if ( notSupportedInOrthographicCamera( this.camera, '_collisionTest' ) ) return distance;
 
 		// divide by distance to normalize, lighter than `Vector3.prototype.normalize()`
-		const direction = _v3A.setFromSpherical( this._spherical ).divideScalar( this._spherical.radius );
+		// const direction = _v3A.setFromSpherical( this._spherical ).divideScalar( this._spherical.radius );
 
-		_rotationMatrix.lookAt( _ORIGIN, direction, this.camera.up );
+		// _rotationMatrix.lookAt( _ORIGIN, direction, this.camera.up );
 
-		for ( let i = 0; i < 4; i ++ ) {
+		// for ( let i = 0; i < 4; i ++ ) {
 
-			const nearPlaneCorner = _v3B.copy( this._nearPlaneCorners[ i ] );
-			nearPlaneCorner.applyMatrix4( _rotationMatrix );
+		// 	const nearPlaneCorner = _v3B.copy( this._nearPlaneCorners[ i ] );
+		// 	nearPlaneCorner.applyMatrix4( _rotationMatrix );
 
-			const origin = _v3C.addVectors( this._target, nearPlaneCorner );
-			_raycaster.set( origin, direction );
-			_raycaster.far = this._spherical.radius + 1;
+		// 	const origin = _v3C.addVectors( this._target, nearPlaneCorner );
+		// 	_raycaster.set( origin, direction );
+		// 	_raycaster.far = this._spherical.radius + 1;
 
-			const intersects = _raycaster.intersectObjects( this.colliderMeshes );
+		// 	const intersects = _raycaster.intersectObjects( this.colliderMeshes );
 
-			if ( intersects.length !== 0 && intersects[ 0 ].distance < distance ) {
+		// 	if ( intersects.length !== 0 && intersects[ 0 ].distance < distance ) {
 
-				distance = intersects[ 0 ].distance;
+		// 		distance = intersects[ 0 ].distance;
 
-			}
+		// 	}
 
-		}
+		// }
 
-		return distance;
+		// return distance;
+		return 0;
 
 	}
 
