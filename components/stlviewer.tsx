@@ -162,15 +162,16 @@ export default function Stlviewer({ file }: FileCardProps) {
     //STL file loading
     const loader = new STLLoader();
 
-    var materials = new Array();
+    var materials = {};
     for (var x = 1; x < 5; x++) { 
-      for (var y = 0; y < 9; y++) { 
+      for (var y = 1; y < 9; y++) {
+        let toothname = "Tooth_".concat(x.toString()).concat(y.toString()); 
         const materialTooth = new THREE.MeshPhongMaterial({
           color: 0xd3d3d3,
           opacity: 1.0,
           transparent: true,
         });
-        materials.push(materialTooth);
+        materials[toothname] = materialTooth;
       }
     }
     dictPositions = {};
@@ -190,7 +191,7 @@ export default function Stlviewer({ file }: FileCardProps) {
 
             const mesh = new THREE.Mesh(
               geometry,
-              materials[toothNr-10] 
+              materials[filename] 
             );
             scene.add(mesh);
             mesh.name = filename;
