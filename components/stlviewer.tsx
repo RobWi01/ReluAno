@@ -28,7 +28,7 @@ function sleep(ms) {
 
 export function removecolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if (file.selected && scene.children[j].id == file.selected.intersect && scene.children[j].material){
+    if (file.selected && scene.children[j].name == file.selected.intersect && scene.children[j].material){
       scene.children[j].material.color.set(0xffffff);
     }
   }
@@ -36,7 +36,7 @@ export function removecolor(file){
 
 export function addcolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if ((file.selected) && (scene.children[j].id == file.selected.intersect) && (scene.children[j].material)){
+    if ((file.selected) && (scene.children[j].name == file.selected.intersect) && (scene.children[j].material)){
       scene.children[j].material.color.set(0xff0000);
     }
   }
@@ -82,7 +82,7 @@ export async function raycasting({ file }: FileCardProps) {
             file.selected.position = intersects[i].point.clone();
             file.selected.endPosition = intersects[i].point.setLength(100);
             //@ts-ignore
-            file.selected.intersect = intersects[i].object.id;
+            file.selected.intersect = intersects[i].object.name;
             addcolor(file);
             changed = true;
           }
