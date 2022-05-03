@@ -28,15 +28,14 @@ function sleep(ms) {
 
 export function removecolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if (file.selected && scene.children[j].name == file.selected.intersect && scene.children[j].material){
+    if (file.selected && scene.children[j].name == file.selected.intersect && scene.children[j].material && (scene.children[j].material.type == 'MeshPhongMaterial')){
       scene.children[j].material.color.set(0xffffff);
-    }
+      }
   }
 }
-
 export function addcolor(file){
   for (var j = 0; j < scene.children.length; j++) {
-    if ((file.selected) && (scene.children[j].name == file.selected.intersect) && (scene.children[j].material)){
+    if ((file.selected) && (scene.children[j].name == file.selected.intersect) && (scene.children[j].material) && (scene.children[j].material.type == 'MeshPhongMaterial')){
       scene.children[j].material.color.set(0xff0000);
     }
   }
@@ -163,9 +162,9 @@ export default function Stlviewer({ file }: FileCardProps) {
     const loader = new STLLoader();
 
     var materials = {};
-    for (var x = 1; x < 5; x++) { 
+    for (var x = 1; x < 5; x++) {
       for (var y = 1; y < 9; y++) {
-        let toothname = "Tooth_".concat(x.toString()).concat(y.toString()); 
+        let toothname = "Tooth_".concat(x.toString()).concat(y.toString());
         const materialTooth = new THREE.MeshPhongMaterial({
           color: 0xd3d3d3,
           opacity: 1.0,
@@ -186,16 +185,15 @@ export default function Stlviewer({ file }: FileCardProps) {
           function (geometry) {
             geometry.translate(0,0,35)
             let toothNr = parseInt(filename.split("_").pop());
-            // let a = Math.floor(toothNr / 10);
-            // let b = toothNr % 10;
+            //let a = Math.floor(toothNr / 10);
+            //let b = toothNr % 10;
 
             const mesh = new THREE.Mesh(
               geometry,
-              materials[filename] 
+              materials[filename]
             );
             scene.add(mesh);
             mesh.name = filename;
-            console.log(filename)
             getAbsolutePosition(mesh, dictPositions);
           },
           (xhr) => {
@@ -238,9 +236,8 @@ export default function Stlviewer({ file }: FileCardProps) {
         //variabeles for determining the postion of the text label and corresponding line
         var startingpoint = file.selected.position; //get startingpoint out of selected card
         var endpoint = file.selected.endPosition; //to be calculated
-
         //start of code for drawing theline
-        const material = new THREE.LineBasicMaterial({
+        const linematerial = new THREE.LineBasicMaterial({
           color: new THREE.Color(0x000000),
           linewidth: 1,
         });
@@ -250,25 +247,22 @@ export default function Stlviewer({ file }: FileCardProps) {
           points.push(startingpoint);
           points.push(endpoint);
           const geometry = new THREE.BufferGeometry().setFromPoints(points);
-          theline = new THREE.Line(geometry, material);
+          theline = new THREE.Line(geometry, linematerial);
           scene.add(theline);
           //end of code for drawing theline
 
           //start code for textlabel
-          var tekstlabel = makeTextSprite(title, {
-            fontsize: 50,
-            borderColor: { r: 0, g: 0, b: 0, a: 1.0 },
-            backgroundColor: { r: 169, g: 169, b: 169, a: 1.0 },
-          });
+          var tekstlabel = makeTextSprite(title, {}, false, 1);
 
           // var tekstlabel = new SpriteText2D("SPRITE", { align: textAlign.center,  font: '40px Arial', fillStyle: '#000000' , antialias: false })
-          tekstlabel.position.set(endpoint.x + 5, endpoint.y, endpoint.z); //Define sprite's anchor point
+          tekstlabel.position.set(endpoint.x, endpoint.y, endpoint.z); //Define sprite's anchor point
           scene.add(tekstlabel);
           //end code for text label
         }
       }
     });
 
+    
     // loader.load(
     //   "https://annosend.blob.core.windows.net/stl-files/Skull.stl",
     //   function (geometry) {
@@ -301,7 +295,7 @@ function init() {
   followLight.castShadow = true;
   scene.add(followLight);
 
-  light = new THREE.AmbientLight(0x404040);
+  light = new THREE.AmbientLight(0x404040, 0.5);
   scene.add(light);
 
   //CAMERA

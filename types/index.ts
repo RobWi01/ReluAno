@@ -39,8 +39,8 @@ export interface ICard {
   text: string;
   new?: boolean;
   position?: THREE.Vector3; // start position line
-  endPosition?: THREE.Vector3; // end position line
-  intersect?: number; //for coloring
+  endPosition?: THREE.Vector3; // end position text
+  intersect?: string; //for coloring
 }
 
 export interface IFile {
