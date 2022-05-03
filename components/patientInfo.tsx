@@ -52,7 +52,7 @@ export default function PatientInfo({ selected_patient }: FileListProps) {
             <span>{selected_patient.sex}</span>
           </p>
           <p>
-            <span className="font-bold">Geboorte: </span>
+            <span className="font-bold">Geboortedatum: </span>
             <span>{selected_patient.birth} </span>
           </p>
           <p>
