@@ -39,7 +39,7 @@ const PopUp = ({ file }: FileCardProps) => {
                 <button
                   onClick={() =>
                     window.open(
-                      "mailto:? &subject=Relu 3D image with annotations &body=Beste collega, \r\n Hierbij de link van patient : " +
+                      "mailto:? &subject=Relu 3D image with annotations &body=Beste collega, \r\n Hierbij de link van patiënt : " +
                         GetURL({ file })
                     )
                   }
