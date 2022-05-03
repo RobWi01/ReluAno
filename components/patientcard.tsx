@@ -42,7 +42,7 @@ export default function PatientCard({
     deletePatient(patient._id);
     fetch("/api/delete_patient", {
       method: "POST",
-      body: JSON.stringify({ new_patient: patient }),
+      body: JSON.stringify({ patient }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -60,7 +60,7 @@ export default function PatientCard({
 
       fetch("/api/update_patient", {
         method: "POST",
-        body: JSON.stringify({ patient }),
+        body: JSON.stringify({ new_patient: patient }),
         headers: {
           "Content-Type": "application/json",
         },
