@@ -37,10 +37,10 @@ export default function AnnotationBar({ file }: AnnotationBarProps) {
       new: true,
     };
     if (file.selected) {
-      removecolor(file)
+      removecolor(file);
     }
     file.selected = new_card;
-    
+
     //call raycaster function
     raycasting({ file });
 

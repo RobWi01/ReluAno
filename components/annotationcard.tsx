@@ -1,7 +1,7 @@
 import { ICard, IFile } from "../types";
 import { AiOutlineEdit, AiOutlineSave, AiOutlineDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import Stlviewer, { addcolor, removecolor } from "./stlviewer";
+import Stlviewer, { addcolor, onDblClick, removecolor } from "./stlviewer";
 import DeleteModal from "./deleteModal";
 import Modal from "react-modal";
 
@@ -53,6 +53,9 @@ export default function AnnotationCard({
         "Content-Type": "application/json",
       },
     });
+    if (editing) {
+      onDblClick(file);
+    }
     setEdit(editing ? false : true);
   };
 
@@ -93,7 +96,11 @@ export default function AnnotationCard({
 
   return (
     <div className="flex items-center">
-      <form className="w-80 text-gray-700 px-3" onSubmit={toggleEdit} onClick={onAnnotation}>
+      <form
+        className="w-80 text-gray-700 px-3"
+        onSubmit={toggleEdit}
+        onClick={() => onAnnotation()}
+      >
         <div className="text-2xl mb-2">
           {editing ? (
             <input
@@ -120,7 +127,7 @@ export default function AnnotationCard({
           )}
         </div>
       </form>
-      <div className="text-gray-700 text-2xl">
+      <div className="text-gray-700 text-2xl flex items-center flex-col">
         <button className="m-2" onClick={toggleEdit}>
           {editing ? <AiOutlineSave /> : <AiOutlineEdit />}
         </button>
