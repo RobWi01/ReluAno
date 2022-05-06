@@ -51,17 +51,15 @@ const onSwipe = (teeth_id) => {
 		controls.setLookAt(2*posx, 2*posy, 10.44, posx, posy, posz, true);
 	};
   };
-
   const sideView = (side) => {
-	
 	if (side == "R")
 	{
-		controls.setLookAt(-129, -0.6, 10.44, posx, posy, posz, true);
-	}
-	else 
-	{
-		controls.setLookAt(131, -0.6, 10.44, posx, posy, posz, true);
-	}
+		controls.setLookAt(-129, -0.6, 10.44, 0, 0, 0, true);
+	  }
+	  else 
+	  {
+	  controls.setLookAt(131, -0.6, 10.44, 0, 0, 0, true)
+  }
 }
 
 const Tanden = ( states ) => {
