@@ -43,12 +43,14 @@ export async function deleteFile(file: IFile) {
 
   const result = await db.collection("files").deleteOne({ _id: file._id });
   var all_annotations = file.card_ids;
+  console.log("all anno: ", all_annotations);
   var del_annotations: any[] = [];
   for (var annotation_id of all_annotations) {
     del_annotations.push(
       await db.collection("annotations").deleteOne({ _id: annotation_id })
     );
   }
+  console.log("all deleted anno: ", del_annotations);
   return result;
 }
 
@@ -94,9 +96,13 @@ export async function deletePatient(patient: IPatient) {
     var all_deleted_annotations: any[] = [];
     for (var annotation_id of all_annotations_ids) {
       console.log(all_annotations_ids);
-      all_deleted_annotations.push(await db.collection("annotations").deleteOne({ _id: annotation_id }));
+      all_deleted_annotations.push(
+        await db.collection("annotations").deleteOne({ _id: annotation_id })
+      );
     }
-    all_deleted_files.push(await db.collection("files").deleteOne({ _id: file_id }))
+    all_deleted_files.push(
+      await db.collection("files").deleteOne({ _id: file_id })
+    );
   }
   console.log("del anno: ", all_deleted_annotations);
   console.log("del files: ", all_deleted_files);
