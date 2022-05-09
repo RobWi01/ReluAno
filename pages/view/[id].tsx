@@ -7,10 +7,8 @@ import {
   controls,
   scene,
   theline,
-  loader,
   Skull,
   Stlviewer,
-  onDblClick,
 } from "../../components/stlviewer";
 import { removecolor } from "../../components/stlviewer";
 import { Navigation } from "../../components/NavBarPatient";
@@ -23,6 +21,7 @@ export default function Home({ file, files, patients }) {
   const [skullSelect, setSkullSelect] = useState(false);
   const [skullLoaded, setSkullLoaded] = useState(false);
   const [annoClick, setAnnoClick] = useState(false);
+  const [selectedTooth, setSelectedTooth] = useState("");
   const resetSTL = () => {
     if (file.selected) {
       removecolor(file);
@@ -64,6 +63,7 @@ export default function Home({ file, files, patients }) {
           file={file}
           setAnnoClick={setAnnoClick}
           annoClick={annoClick}
+          setSelectedTooth={setSelectedTooth}
         />
       </div>
       <div
@@ -75,6 +75,8 @@ export default function Home({ file, files, patients }) {
           setSkullSelect={setSkullSelect}
           skullSelect={skullSelect}
           skullLoaded={skullLoaded}
+          file={file}
+          selectedTooth={selectedTooth}
         />
         <div className="absolute right-0 bottom-0 flex flex-row">
           <PopUp file={file} />
