@@ -75,7 +75,7 @@ export const Navigation = ({
       >
         <Container className="container-fluid min-w-full">
           <div className="pl-2 pr-4 pt-2">
-            <button onClick={() => (document.location.href = "http://relu-ano.vercel.app/")}>
+            <button onClick={() => (document.location.href = "http://localhost:3000/")}>
               <Image
                 src={require("./images/relu-logo-small.png")}
                 className=""

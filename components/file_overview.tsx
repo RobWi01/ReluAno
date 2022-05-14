@@ -54,7 +54,7 @@ export default function FileList({
   return (
     <div className="">
       <div className="flex relative justify-center border-b-2">
-        <p1>Scans</p1>
+        <p>Scans</p>
 
         {files.length > 0 ? (
           <button onClick={newFile}>
