@@ -13,7 +13,6 @@ type FileListProps = {
   addFile: Function;
   updateFile: Function;
   deleteFilecard: Function;
-  loggedFiles: IFile[];
 };
 
 export default function PatientInfo({ selected_patient }: FileListProps) {
