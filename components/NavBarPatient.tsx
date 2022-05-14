@@ -13,6 +13,17 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import { AiOutlineClose, AiOutlineQuestionCircle } from "react-icons/ai";
 import YoutubePopUp from "./youtubePopUp";
 import Modal from "react-modal";
+import { ARButton } from "./ARbutton"
+import { renderer } from "./stlviewer";
+// import '@google/model-viewer'
+// import {
+//   ARImage,
+//   ModelViewer,
+//   ARButton,
+//   ARCarousel,
+//   ARLink,
+// } from '@real2u/react-ar-components'
+
 
 type FileListProps = {
   files_input: IFile[];
@@ -20,6 +31,8 @@ type FileListProps = {
   file: IFile;
   resetSTL: Function;
 };
+
+// const buttonAR = ARButton.createButton(renderer)
 
 const customStyles = {
   content: {
@@ -62,19 +75,16 @@ export const Navigation = ({
       >
         <Container className="container-fluid min-w-full">
           <div className="pl-2 pr-4 pt-2">
-            <Image
-              src={require("./images/relu-logo-small.png")}
-              className=""
-              alt="Logo"
-              width={120}
-              height={50}
-            />
+            <button onClick={() => (document.location.href = "http://relu-ano.vercel.app/")}>
+              <Image
+                src={require("./images/relu-logo-small.png")}
+                className=""
+                alt="Logo"
+                width={120}
+                height={50}
+              />
+            </button>
           </div>
-          <Navbar.Brand
-            onClick={() => (document.location.href = "http://annosend.vercel.app")}
-          >
-            <button>Home</button>
-          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto space-x-4">
