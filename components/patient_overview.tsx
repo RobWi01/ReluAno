@@ -58,7 +58,7 @@ export default function PatientList({
   return (
     <div className="relative">
       <div className="flex justify-center items-center">
-        <p1>Patiënten</p1>
+        <p>Patiënten</p>
         <div className="absolute right-0">
           {isOpen ? (
             <Modal isOpen={isOpen} style={customStyles}>
