@@ -5,6 +5,7 @@ import { GrAdd } from "react-icons/gr";
 import { v4 as uuidv4 } from "uuid";
 import { signOut } from "next-auth/react";
 import { MdAdd } from "react-icons/md";
+import { title } from "process";
 
 type FileListProps = {
   files_input: IFile[];
@@ -37,6 +38,7 @@ export default function FileList({
       title: "",
       card_ids: [],
       new: true,
+      scanDate: "",
     };
 
     selected_patient.file_ids.push(new_file._id);
@@ -51,14 +53,21 @@ export default function FileList({
     addFile(new_file);
   };
 
+  const sortedFiles = []
+    .concat(files)
+    .sort((a, b) => (a.scanDate > b.scanDate ? -1 : 1));
+
   return (
     <div className="">
       <div className="flex relative justify-center border-b-2">
-        <p>Scans</p>
+        <div className="xxlarge">Scans</div>
 
-        {files.length > 0 ? (
-          <button onClick={newFile}>
-            <MdAdd className="text-3xl absolute bottom-2 right-8" style={{"strokeWidth": "0"}}/>
+        {selected_patient != null ? (
+          <button onClick={() => newFile()}>
+            <MdAdd
+              className="text-3xl absolute bottom-2 right-8"
+              style={{ strokeWidth: "0" }}
+            />
           </button>
         ) : (
           true
@@ -66,7 +75,7 @@ export default function FileList({
       </div>
 
       <div className="divide-y-2">
-        {files.map((file) => {
+        {sortedFiles.map((file) => {
           return (
             <FileCard
               key={Object(file._id)}

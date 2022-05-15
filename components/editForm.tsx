@@ -51,8 +51,14 @@ export const EditForm = ({
   };
 
   const onClick = () => {
-    onSubmit();
-    setIsOpen(false);
+    if (name != "") {
+      onSubmit();
+      setIsOpen(false);
+    } else {
+      toast.error("De naam van een patient kan niet leeg zijn.", {
+        className: "text-lg",
+      });
+    }
   };
 
   const btnClicked = (name) => {
@@ -113,7 +119,6 @@ export const EditForm = ({
               value={birthdate}
               onChange={(event) => setBirthDate(event.target.value)}
               required
-              defaultValue={patient.birth}
             />
           </Form.Group>
           <Form.Group>

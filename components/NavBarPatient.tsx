@@ -13,6 +13,7 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import { AiOutlineClose, AiOutlineQuestionCircle } from "react-icons/ai";
 import YoutubePopUp from "./youtubePopUp";
 import Modal from "react-modal";
+import { ARButton } from "./ARbutton";
 import { renderer } from "./stlviewer";
 // import '@google/model-viewer'
 // import {
@@ -22,7 +23,6 @@ import { renderer } from "./stlviewer";
 //   ARCarousel,
 //   ARLink,
 // } from '@real2u/react-ar-components'
-
 
 type FileListProps = {
   files_input: IFile[];
@@ -74,13 +74,17 @@ export const Navigation = ({
       >
         <Container className="container-fluid min-w-full">
           <div className="pl-2 pr-4 pt-2">
-            <button onClick={() => (document.location.href = "http://relu-ano.vercel.app/")}>
+            <button
+              onClick={() =>
+                (document.location.href = "http://relu-ano.vercel.app/")
+              }
+            >
               <Image
                 src={require("./images/relu-logo-small.png")}
                 className=""
                 alt="Logo"
-                width={120}
-                height={50}
+                width={95}
+                height={45}
               />
             </button>
           </div>
@@ -116,7 +120,7 @@ export const Navigation = ({
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Modal isOpen={youtubeClick} style={customStyles}>
+      <Modal isOpen={youtubeClick} style={customStyles} ariaHideApp={false}>
         <div className="relative">
           <div className="absolute -right-4 -top-4">
             <AiOutlineClose onClick={() => setYoutubeClick(false)} />
