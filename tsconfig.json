@@ -1,32 +1,24 @@
 {
   "compilerOptions": {
+    "outDir": "build/dist",
+    "module": "esnext",
     "target": "es5",
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "es6",
+      "dom"
     ],
+    "sourceMap": true,
     "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "incremental": true,
-    "esModuleInterop": true,
-    "module": "esnext",
+    "jsx": "react",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve"
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx", 
-    "components/*",
-    "components/layout/Anatomy.jsx"  
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "rootDir": "src",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "allowSyntheticDefaultImports": true
+  }
 }
