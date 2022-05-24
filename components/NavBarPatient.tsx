@@ -75,7 +75,7 @@ export const Navigation = ({
           <div className="pl-2 pr-4 pt-2">
             <button
               onClick={() =>
-                (document.location.href = "http://https://annosend.vercel.app/")
+                (document.location.href = "http://annosend.vercel.app/")
               }
             >
               <Image
