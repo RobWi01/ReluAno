@@ -1,14 +1,11 @@
 import PatientList from "./patient_overview";
 import FileList from "./file_overview";
 import { IFile, IPatient } from "../types";
-import { useState, useEffect } from "react";
-import { GrAdd } from "react-icons/gr";
-import { v4 as uuidv4 } from "uuid";
-import { useSession } from "next-auth/react";
-import { get } from "https";
+import { useState } from "react";
 import _ from "lodash";
 import NavBarHome from "./NavBarHomepage";
 import PatientInfo from "./patientInfo";
+import { ToastContainer } from "react-toastify";
 
 /*
 $ npm i -g npm
@@ -92,23 +89,28 @@ export default function HomePage({
   };
 
   return (
-    <div className="flex flex-col space-y-1 overflow-clip h-screen">
+    <div className="flex flex-col space-y-1 overflow-hidden h-screen min-w-screen">
+      <ToastContainer position="top-left" autoClose={5000} />
       <div className="w-full">
         <NavBarHome changePatient={changePatient} patients={patients} />
       </div>
 
-      <div className="flex flex-row space-x-5 px-2">
-        <div className="h-fit">
+      <div className="flex flex-row overflow-hidden space-x-5 px-2">
+        <div className="overflow-y-auto" style={{ width: "30%" }}>
           <PatientList
             patients_input={patients}
             changePatient={changePatient}
             addPatient={addPatient}
             updatePatient={updatePatient}
             deletePatientCard={deletePatient}
+            setSelectedPatient={setSelectedPatient}
           />
         </div>
 
-        <div className="flex flex-col w-full overflow-y-auto overflow-x-auto max-h-screen">
+        <div
+          className="flex flex-col overflow-y-auto min-w-fit"
+          style={{ width: "70%" }}
+        >
           <div className="bg-gray-200">
             <PatientInfo
               selected_patient={selectedPatient}

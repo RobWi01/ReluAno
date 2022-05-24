@@ -34,6 +34,7 @@ type AnnotationCardProps = {
   setAnnoClick: Function;
   annoClick: boolean;
   setSelectedTooth: Function;
+  selectedTooth: String;
 };
 
 export default function AnnotationCard({
@@ -41,6 +42,7 @@ export default function AnnotationCard({
   deleteCard,
   file,
   setSelectedTooth,
+  selectedTooth,
 }: AnnotationCardProps) {
   const [editing, setEdit] = useState(card.new);
   const [title, setTitle] = useState(card.title);
@@ -96,13 +98,18 @@ export default function AnnotationCard({
       if (editing) {
         onDblClick(file);
       }
+      setSelectedTooth(file.selected.intersect);
       setEdit(editing ? false : true);
     }
   };
 
   const onDelete = () => {
     deleteCard(card._id);
-    deleteAnnoCard();
+
+    if (card.intersect == selectedTooth) {
+      deleteAnnoCard();
+      setSelectedTooth("");
+    }
 
     fetch("/api/delete_anno", {
       method: "POST",
@@ -139,10 +146,10 @@ export default function AnnotationCard({
   };
 
   return (
-    <div className="flex items-center">
-      <div className="overflow-x-auto">
+    <div className="flex items-center min-w-full">
+      <div className="overflow-x-auto" style={{ width: "100%" }}>
         <form
-          className="w-80 text-gray-700 px-3"
+          className="text-gray-700 px-3"
           onSubmit={toggleEdit}
           onClick={() => onAnnotation()}
         >
@@ -174,7 +181,6 @@ export default function AnnotationCard({
         </form>
       </div>
       <div className="text-gray-700 text-xl flex items-center flex-col">
-        <ToastContainer position="top-left" autoClose={8000} />
         <button className="m-2" onClick={toggleEdit}>
           {editing && typeof card.position == "undefined" ? (
             <AiOutlineSave />

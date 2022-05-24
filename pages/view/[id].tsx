@@ -17,12 +17,16 @@ import { getSession } from "next-auth/react";
 import { getFiles } from "../../lib/annotations";
 import THREE, { Sprite } from "three";
 import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 export default function Home({ file, files, patients }) {
   const [skullSelect, setSkullSelect] = useState(false);
   const [skullLoaded, setSkullLoaded] = useState(false);
   const [annoClick, setAnnoClick] = useState(false);
   const [selectedTooth, setSelectedTooth] = useState("");
+  const [annoSwiped, setAnnoSwiped] = useState<boolean>(false);
+  const [sideSwipe, setSideSwipe] = useState<boolean>(false);
+
   const resetSTL = () => {
     if (file.selected) {
       removecolor(file);
@@ -69,6 +73,7 @@ export default function Home({ file, files, patients }) {
   var states_dict = { TOOTH_11: onSwipe };
   return (
     <div className="flex relative w-screen h-screen">
+      <ToastContainer position="top-left" autoClose={5000} />
       <Stlviewer file={file} setSkullLoaded={setSkullLoaded} />
       <div className="absolute w-full">
         <Navigation
@@ -79,17 +84,23 @@ export default function Home({ file, files, patients }) {
         />
       </div>
       {skullSelect ? <Skull select={true} /> : <Skull select={false} />}
-      <div className="absolute top-12" style={{ width: "40%" }}>
+      <div
+        className="absolute top-12"
+        style={annoSwiped ? { width: "" } : { width: "40%" }}
+      >
         <AnnotationBar
           file={file}
           setAnnoClick={setAnnoClick}
           annoClick={annoClick}
           setSelectedTooth={setSelectedTooth}
+          annoSwiped={annoSwiped}
+          SetAnnoSwiped={setAnnoSwiped}
+          selectedTooth={selectedTooth}
         />
       </div>
       <div
         className="absolute right-0 top-12"
-        style={{ height: "calc(100vh - 48px)" }}
+        style={sideSwipe ? { width: "" } : { width: "30%" }}
       >
         <Sidebar
           states={states_dict}
@@ -98,9 +109,11 @@ export default function Home({ file, files, patients }) {
           skullLoaded={skullLoaded}
           file={file}
           selectedTooth={selectedTooth}
+          sideSwipe={sideSwipe}
+          setSideSwipe={setSideSwipe}
         />
         <div className="absolute right-0 bottom-0 flex flex-row">
-          <PopUp file={file} />
+          <PopUp file={file} patients={patients} />
         </div>
       </div>
     </div>

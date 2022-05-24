@@ -14,6 +14,7 @@ type PatientListProps = {
   addPatient: Function;
   updatePatient: Function;
   deletePatientCard: Function;
+  setSelectedPatient: Function;
 };
 
 const customStyles = {
@@ -33,6 +34,7 @@ export default function PatientList({
   addPatient,
   updatePatient,
   deletePatientCard,
+  setSelectedPatient,
 }: PatientListProps) {
   const [patients, setPatient] = useState(patients_input);
   const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +61,7 @@ export default function PatientList({
     .sort((a, b) => (a.name > b.name ? 1 : -1));
 
   return (
-    <div className="relative">
+    <div className="relative overflow-y-auto">
       <div className="flex justify-center items-center border-b-2">
         <div className="xxlarge">Patiënten</div>
         <div className="absolute right-0 flex justify-center">
@@ -74,7 +76,7 @@ export default function PatientList({
           )}
         </div>
       </div>
-      <div className="divide-y-2 h-screen overflow-y-auto overflow-x-auto ">
+      <div className="divide-y-2 overflow-hidden">
         {sortedPatients.map((patient, index) => {
           return (
             <PatientCard
@@ -84,6 +86,7 @@ export default function PatientList({
               changePatient={changePatient}
               updatePatient={updatePatient}
               deletePatientCard={deletePatientCard}
+              setSelectedPatient={setSelectedPatient}
             />
           );
         })}
